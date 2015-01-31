@@ -1,6 +1,6 @@
 FlippableStackView
 ===============
-An Android library that allows to create a stack of views with the flippable first item of the stack.
+An Android library introducing a stack of Views with the first item being flippable (on dragging down).
 
 ![ ](/FlippableStackView.gif)
 
