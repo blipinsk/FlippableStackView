@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/midnight_blue">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:paddingTop="20dp"
+        android:text="@string/app_name"
+        android:textSize="32sp"
+        android:textColor="@color/clouds"
+        android:gravity="center"/>
+
+    <com.bartoszlipinski.flippablestackview.FlippableStackView
+        android:id="@+id/flippable_stack_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>
