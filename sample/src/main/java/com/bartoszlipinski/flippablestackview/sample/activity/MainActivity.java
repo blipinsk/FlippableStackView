@@ -10,7 +10,7 @@ import android.support.v7.app.ActionBarActivity;
 import com.bartoszlipinski.flippablestackview.FlippableStackView;
 import com.bartoszlipinski.flippablestackview.sample.R;
 import com.bartoszlipinski.flippablestackview.sample.fragment.ColorFragment;
-import com.bartoszlipinski.flippablestackview.sample.utilities.ValueInterpolator;
+import com.bartoszlipinski.flippablestackview.utilities.ValueInterpolator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class MainActivity extends ActionBarActivity {
 
     private FlippableStackView mFlippableStack;
 
-    private MyPagerAdapter mPageAdapter;
+    private ColorFragmentAdapter mPageAdapter;
 
     private List<Fragment> mViewPagerFragments;
 
@@ -36,10 +36,10 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         createViewPagerFragments();
-        mPageAdapter = new MyPagerAdapter(getSupportFragmentManager(), mViewPagerFragments);
+        mPageAdapter = new ColorFragmentAdapter(getSupportFragmentManager(), mViewPagerFragments);
 
         mFlippableStack = (FlippableStackView) findViewById(R.id.flippable_stack_view);
-        mFlippableStack.initStack(2);
+        mFlippableStack.initStack(4);
         mFlippableStack.setAdapter(mPageAdapter);
     }
 
@@ -65,10 +65,10 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    private class MyPagerAdapter extends FragmentPagerAdapter {
+    private class ColorFragmentAdapter extends FragmentPagerAdapter {
         private List<Fragment> fragments;
 
-        public MyPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
+        public ColorFragmentAdapter(FragmentManager fm, List<Fragment> fragments) {
             super(fm);
             this.fragments = fragments;
         }
