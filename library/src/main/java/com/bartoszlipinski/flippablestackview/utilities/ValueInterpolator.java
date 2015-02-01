@@ -1,4 +1,4 @@
-package com.bartoszlipinski.flippablestackview.sample.utilities;
+package com.bartoszlipinski.flippablestackview.utilities;
 
 /**
  * Created by Bartosz Lipinski

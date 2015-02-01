@@ -2,14 +2,19 @@ package com.bartoszlipinski.flippablestackview;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
 
 import com.bartoszlipinski.flippablestackview.exception.WrongValueException;
+import com.bartoszlipinski.flippablestackview.utilities.ValueInterpolator;
 
 /**
  * Created by Bartosz Lipinski
  * 28.01.15
  */
 public class StackPageTransformer implements ViewPager.PageTransformer {
+
     public enum Gravity {
         TOP, CENTER, BOTTOM
     }
@@ -27,6 +32,11 @@ public class StackPageTransformer implements ViewPager.PageTransformer {
     private boolean mInitialValuesCalculated = false;
 
     private Gravity mGravity;
+
+    private Interpolator mScaleInterpolator;
+    private Interpolator mRotationInterpolator;
+
+    private ValueInterpolator mValueInterpolator;
 
     /**
      * Used to construct the basic method for visual transformation in <code>FlippableStackView</code>.
@@ -53,6 +63,10 @@ public class StackPageTransformer implements ViewPager.PageTransformer {
         mStackedScaleFactor = (currentPageScale - topStackedScale) / mNumberOfStacked;
         mOverlapFactor = overlapFactor;
         mGravity = gravity;
+
+        mScaleInterpolator = new DecelerateInterpolator(1.3f);
+        mRotationInterpolator = new AccelerateInterpolator(0.6f);
+        mValueInterpolator = new ValueInterpolator(0, 1, 0, mZeroPositionScale);
     }
 
     @Override
@@ -80,15 +94,19 @@ public class StackPageTransformer implements ViewPager.PageTransformer {
             view.setAlpha(1.0f + (position * mAlphaFactor));
         } else if (position <= 1) {
             float baseTranslationY = position * height;
-            float scale = mZeroPositionScale - position;
+            float scale = mZeroPositionScale - mValueInterpolator.map(mScaleInterpolator.getInterpolation(position));
             scale = (scale < 0) ? 0f : scale;
             float shiftTranslation = (1.0f - position) * mOverlap;
+            float rotation = -mRotationInterpolator.getInterpolation(position) * 90;
+            rotation = (rotation < -90) ? -90 : rotation;
+            float alpha = 1.0f - position;
+            alpha = (alpha < 0) ? 0f : alpha;
             view.setPivotY(height);
-            view.setRotationX(-position * 90);
+            view.setRotationX(rotation);
             view.setScaleX(mZeroPositionScale);
             view.setScaleY(scale);
             view.setTranslationY(-baseTranslationY - mBottomSpace - shiftTranslation);
-            view.setAlpha(1.0f - position);
+            view.setAlpha(alpha);
         } else if (position > 1) {
             view.setAlpha(0f);
         }
