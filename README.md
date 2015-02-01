@@ -2,6 +2,8 @@ FlippableStackView
 ===============
 An Android library introducing a stack of Views with the first item being flippable (on dragging down).
 
+`Views` inside the stack remain the aspect ratio of the `FlippableStackView`.
+
 ![ ](/FlippableStackView.gif)
 
 
