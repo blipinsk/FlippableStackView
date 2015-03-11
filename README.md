@@ -34,7 +34,7 @@ The `FlippableStackView` is highly customizable to provide you with just the vis
 
 There are two methods that allows for initialization of the stack:
 
-  1. The one that sets the stuck in the default way (scale-wise): 
+  1. The one that sets the stack in the default way (scale-wise): 
  
         public void initStack(int numberOfStacked)
  
@@ -42,13 +42,17 @@ There are two methods that allows for initialization of the stack:
  
         public void initStack(int numberOfStacked, float currentPageScale, float topStackedScale, float overlapFactor, StackPageTransformer.Gravity gravity) 
 
- Be sure to read about all the parameters in `JavaDoc` before using the latter one.
+ Be sure to read about all the parameters in `Javadoc` before using the latter one.
 
 Including In Your Project
 -------------------------
-Currently not available via Maven Central. *yet...*
+You can grab the library via Maven Central. Just add a proper dependency inside your `build.gradle`. Like this:
 
-Fork the repository or add a submodule to your repo and include the 'library' module to your project.
+```xml
+dependencies {
+    compile 'com.bartoszlipinski.flippablestackview:library:1.0.1'
+}
+```
 
 Developed by
 ==========
@@ -59,6 +63,7 @@ Credits
 This library is based on the vertical version of Android `ViewPager`. 
 The implementation used in the library has been developed by [Antoine Merle][1], so all the credits for the [`VerticalViewPager`][2] go to him.
 
+Maven Central deployment was performed using an awesome Gradle script by [Chris Banes][4]. [This][5] made things so much easier.
 
 License
 ======
@@ -81,3 +86,5 @@ License
  [1]: https://github.com/castorflex
  [2]: https://github.com/castorflex/VerticalViewPager
  [3]: http://developer.android.com/reference/android/support/v4/view/PagerAdapter.html
+ [4]: https://chris.banes.me/2013/08/27/pushing-aars-to-maven-central/
+ [5]: https://github.com/chrisbanes/gradle-mvn-push

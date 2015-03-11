@@ -23,3 +23,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.github.castorflex.verticalviewpager:library:19.0.1'
 }
+
+apply from: '../gradle-mvn-push.gradle'
