@@ -39,9 +39,13 @@ There are two methods that allows for initialization of the stack:
         public void initStack(int numberOfStacked)
  
   2. And the other one... a bit more advanced (lets you customize all the scale-related and alignment-related parameters):
+  
+        public void initStack(int numberOfStacked,
+                              float currentPageScale,
+                              float topStackedScale,
+                              float overlapFactor,
+                              StackPageTransformer.Gravity gravity) 
  
-        public void initStack(int numberOfStacked, float currentPageScale, float topStackedScale, float overlapFactor, StackPageTransformer.Gravity gravity) 
-
  Be sure to read about all the parameters in `Javadoc` before using the latter one.
 
 Including In Your Project
