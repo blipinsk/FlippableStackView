@@ -1,3 +1,8 @@
+Version 1.1.0 *(2015-03-22)*
+----------------------------
+
+ * Using `IllegalArgumentException` instead of `WrongValueException`
+
 Version 1.0.1 *(2015-03-11)*
 ----------------------------
 
