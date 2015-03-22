@@ -22,7 +22,6 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 
-import com.bartoszlipinski.flippablestackview.exception.WrongValueException;
 import com.bartoszlipinski.flippablestackview.utilities.ValueInterpolator;
 
 /**
@@ -159,17 +158,17 @@ public class StackPageTransformer implements ViewPager.PageTransformer {
 
     private void validateValues(float currentPageScale, float topStackedScale, float overlapFactor) {
         if (currentPageScale <= 0 || currentPageScale > 1) {
-            throw new WrongValueException(this.getClass().getSimpleName() + ": Current page scale not correctly defined. " +
+            throw new IllegalArgumentException(this.getClass().getSimpleName() + ": Current page scale not correctly defined. " +
                     "Be sure to set it to value from (0, 1].");
         }
 
         if (topStackedScale <= 0 || topStackedScale > currentPageScale) {
-            throw new WrongValueException(this.getClass().getSimpleName() + ": Top stacked page scale not correctly defined. " +
+            throw new IllegalArgumentException(this.getClass().getSimpleName() + ": Top stacked page scale not correctly defined. " +
                     "Be sure to set it to value from (0, currentPageScale].");
         }
 
         if (overlapFactor < 0 || overlapFactor > 1) {
-            throw new WrongValueException(this.getClass().getSimpleName() + ": Overlap factor not correctly defined. " +
+            throw new IllegalArgumentException(this.getClass().getSimpleName() + ": Overlap factor not correctly defined. " +
                     "Be sure to set it to value from [0, 1].");
         }
     }
