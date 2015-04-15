@@ -24,6 +24,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.ActionBarActivity;
 
 import com.bartoszlipinski.flippablestackview.FlippableStackView;
+import com.bartoszlipinski.flippablestackview.StackPageTransformer;
 import com.bartoszlipinski.flippablestackview.sample.R;
 import com.bartoszlipinski.flippablestackview.sample.fragment.ColorFragment;
 import com.bartoszlipinski.flippablestackview.utilities.ValueInterpolator;
@@ -55,7 +56,7 @@ public class MainActivity extends ActionBarActivity {
         mPageAdapter = new ColorFragmentAdapter(getSupportFragmentManager(), mViewPagerFragments);
 
         mFlippableStack = (FlippableStackView) findViewById(R.id.flippable_stack_view);
-        mFlippableStack.initStack(4);
+        mFlippableStack.initStack(4, StackPageTransformer.Anchor.RIGHT);
         mFlippableStack.setAdapter(mPageAdapter);
     }
 
