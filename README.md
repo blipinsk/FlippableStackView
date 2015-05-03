@@ -18,7 +18,7 @@ Usage
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-  2. `FlippableStackView` is based on the specific `PageTransformer` used with the `OrientedViewPager`. Therefore to fill the `View` you can use just a typical implementation of a [`PagerAdapter`][1]. In your `onCreate` method (or `onCreateView` for a fragment), setup all the parameters of the `FlippableStackView`.
+  2. `FlippableStackView` is based on the specific `PageTransformer` used with the `VerticalViewPager`. Therefore to fill the `View` you can use just a typical implementation of a [`PagerAdapter`][3]. In your `onCreate` method (or `onCreateView` for a fragment), setup all the parameters of the `FlippableStackView`.
 
         FlippableStackView stack = (FlippableStackView) findViewById(R.id.stack);
         stack.initStack(2);
@@ -32,20 +32,15 @@ Customization
 -------------
 The `FlippableStackView` is highly customizable to provide you with just the visual effect you really wanted.
 
-There are three methods that allows for initialization of the stack:
+There are two methods that allows for initialization of the stack:
 
-  1. First one sets up the stack in the default way (scale-wise and orientation-wise):
+  1. The one that sets the stack in the default way (scale-wise): 
  
         public void initStack(int numberOfStacked)
-
-  2. The second one sets up the stack in the default way (scale-wise) but let's you choose the orientation of it:
-
-        public void initStack(int numberOfStacked, StackPageTransformer.Orientation orientation)
  
-  2. And the last one... a bit more advanced (lets you customize all the scale-related, orientation-related and alignment-related parameters):
+  2. And the other one... a bit more advanced (lets you customize all the scale-related and alignment-related parameters):
   
         public void initStack(int numberOfStacked,
-                              StackPageTransformer.Orientation orientation,
                               float currentPageScale,
                               float topStackedScale,
                               float overlapFactor,
@@ -59,7 +54,7 @@ You can grab the library via Maven Central. Just add a proper dependency inside 
 
 ```xml
 dependencies {
-    compile 'com.bartoszlipinski.flippablestackview:library:1.2.0'
+    compile 'com.bartoszlipinski.flippablestackview:library:1.1.0’
 }
 ```
 
@@ -69,7 +64,10 @@ Developed by
 
 Credits
 -------
-Maven Central deployment was performed using an awesome Gradle script by [Chris Banes][2]. [This][3] made things so much easier.
+This library is based on the vertical version of Android `ViewPager`. 
+The implementation used in the library has been developed by [Antoine Merle][1], so all the credits for the [`VerticalViewPager`][2] go to him.
+
+Maven Central deployment was performed using an awesome Gradle script by [Chris Banes][4]. [This][5] made things so much easier.
 
 License
 ======
@@ -89,6 +87,8 @@ License
     limitations under the License.
 
 
- [1]: http://developer.android.com/reference/android/support/v4/view/PagerAdapter.html
- [2]: https://chris.banes.me/2013/08/27/pushing-aars-to-maven-central/
- [3]: https://github.com/chrisbanes/gradle-mvn-push
+ [1]: https://github.com/castorflex
+ [2]: https://github.com/castorflex/VerticalViewPager
+ [3]: http://developer.android.com/reference/android/support/v4/view/PagerAdapter.html
+ [4]: https://chris.banes.me/2013/08/27/pushing-aars-to-maven-central/
+ [5]: https://github.com/chrisbanes/gradle-mvn-push
