@@ -52,7 +52,7 @@ public class FlippableStackView extends OrientedViewPager {
      * is being set by the user, other parameters are set to default values).
      *
      * @param numberOfStacked Number of pages stacked under the current page.
-     * @param orientation     Place at which Stack will be anchored.
+     * @param orientation     Orientation of the stack.
      */
     public void initStack(int numberOfStacked, StackPageTransformer.Orientation orientation) {
         initStack(numberOfStacked, orientation, DEFAULT_CURRENT_PAGE_SCALE, DEFAULT_TOP_STACKED_SCALE, DEFAULT_OVERLAP_FACTOR, StackPageTransformer.Gravity.CENTER);
@@ -62,7 +62,7 @@ public class FlippableStackView extends OrientedViewPager {
      * Used to create <code>FlippableStackView</code> with all customizable parameters defined.
      *
      * @param numberOfStacked  Number of pages stacked under the current page.
-     * @param orientation      Place at which Stack will be anchored.
+     * @param orientation      Orientation of the stack.
      * @param currentPageScale Scale of the current page. Must be a value from (0, 1].
      * @param topStackedScale  Scale of the top stacked page. Must be a value from
      *                         (0, <code>currentPageScale</code>].

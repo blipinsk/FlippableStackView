@@ -31,7 +31,8 @@ import com.bartoszlipinski.flippablestackview.utilities.ValueInterpolator;
 public class StackPageTransformer implements ViewPager.PageTransformer {
 
     public enum Orientation {
-        VERTICAL(OrientedViewPager.Orientation.VERTICAL), HORIZONTAL(OrientedViewPager.Orientation.HORIZONTAL);
+        VERTICAL(OrientedViewPager.Orientation.VERTICAL),
+        HORIZONTAL(OrientedViewPager.Orientation.HORIZONTAL);
 
         private final OrientedViewPager.Orientation mOrientation;
 
@@ -72,6 +73,7 @@ public class StackPageTransformer implements ViewPager.PageTransformer {
      * Used to construct the basic method for visual transformation in <code>FlippableStackView</code>.
      *
      * @param numberOfStacked  Number of pages stacked under the current page.
+     * @param orientation      Orientation of the stack.
      * @param currentPageScale Scale of the current page. Must be a value from (0, 1].
      * @param topStackedScale  Scale of the top stacked page. Must be a value from
      *                         (0, <code>currentPageScale</code>].
