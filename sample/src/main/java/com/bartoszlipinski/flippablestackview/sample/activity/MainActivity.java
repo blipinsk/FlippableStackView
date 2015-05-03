@@ -16,6 +16,7 @@
 
 package com.bartoszlipinski.flippablestackview.sample.activity;
 
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -55,8 +56,12 @@ public class MainActivity extends ActionBarActivity {
         createViewPagerFragments();
         mPageAdapter = new ColorFragmentAdapter(getSupportFragmentManager(), mViewPagerFragments);
 
+        boolean portrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+
         mFlippableStack = (FlippableStackView) findViewById(R.id.flippable_stack_view);
-        mFlippableStack.initStack(4, StackPageTransformer.Anchor.RIGHT);
+        mFlippableStack.initStack(4, portrait ?
+                StackPageTransformer.Orientation.VERTICAL :
+                StackPageTransformer.Orientation.HORIZONTAL);
         mFlippableStack.setAdapter(mPageAdapter);
     }
 

@@ -18,14 +18,13 @@ package com.bartoszlipinski.flippablestackview;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 
 /**
  * Created by Bartosz Lipinski
  * 31.01.15
  */
-public class FlippableStackView extends ViewPager {
+public class FlippableStackView extends OrientedViewPager {
     private static final float DEFAULT_CURRENT_PAGE_SCALE = 0.8f;
     private static final float DEFAULT_TOP_STACKED_SCALE = 0.7f;
     private static final float DEFAULT_OVERLAP_FACTOR = 0.4f;
@@ -45,7 +44,7 @@ public class FlippableStackView extends ViewPager {
      * @param numberOfStacked Number of pages stacked under the current page.
      */
     public void initStack(int numberOfStacked) {
-        initStack(numberOfStacked, StackPageTransformer.Anchor.BOTTOM, DEFAULT_CURRENT_PAGE_SCALE, DEFAULT_TOP_STACKED_SCALE, DEFAULT_OVERLAP_FACTOR, StackPageTransformer.Gravity.CENTER);
+        initStack(numberOfStacked, StackPageTransformer.Orientation.VERTICAL, DEFAULT_CURRENT_PAGE_SCALE, DEFAULT_TOP_STACKED_SCALE, DEFAULT_OVERLAP_FACTOR, StackPageTransformer.Gravity.CENTER);
     }
 
     /**
@@ -53,17 +52,17 @@ public class FlippableStackView extends ViewPager {
      * is being set by the user, other parameters are set to default values).
      *
      * @param numberOfStacked Number of pages stacked under the current page.
-     * @param anchor          Place at which Stack will be anchored.
+     * @param orientation     Place at which Stack will be anchored.
      */
-    public void initStack(int numberOfStacked, StackPageTransformer.Anchor anchor) {
-        initStack(numberOfStacked, anchor, DEFAULT_CURRENT_PAGE_SCALE, DEFAULT_TOP_STACKED_SCALE, DEFAULT_OVERLAP_FACTOR, StackPageTransformer.Gravity.CENTER);
+    public void initStack(int numberOfStacked, StackPageTransformer.Orientation orientation) {
+        initStack(numberOfStacked, orientation, DEFAULT_CURRENT_PAGE_SCALE, DEFAULT_TOP_STACKED_SCALE, DEFAULT_OVERLAP_FACTOR, StackPageTransformer.Gravity.CENTER);
     }
 
     /**
      * Used to create <code>FlippableStackView</code> with all customizable parameters defined.
      *
      * @param numberOfStacked  Number of pages stacked under the current page.
-     * @param anchor           Place at which Stack will be anchored.
+     * @param orientation      Place at which Stack will be anchored.
      * @param currentPageScale Scale of the current page. Must be a value from (0, 1].
      * @param topStackedScale  Scale of the top stacked page. Must be a value from
      *                         (0, <code>currentPageScale</code>].
@@ -76,8 +75,9 @@ public class FlippableStackView extends ViewPager {
      * @param gravity          Specifies the alignment of the stack (vertically) withing <code>View</code>
      *                         bounds.
      */
-    public void initStack(int numberOfStacked, StackPageTransformer.Anchor anchor, float currentPageScale, float topStackedScale, float overlapFactor, StackPageTransformer.Gravity gravity) {
-        setPageTransformer(false, new StackPageTransformer(numberOfStacked, anchor, currentPageScale, topStackedScale, overlapFactor, gravity));
+    public void initStack(int numberOfStacked, StackPageTransformer.Orientation orientation, float currentPageScale, float topStackedScale, float overlapFactor, StackPageTransformer.Gravity gravity) {
+        setOrientation(orientation.getViewPagerOrientation());
+        setPageTransformer(false, new StackPageTransformer(numberOfStacked, orientation, currentPageScale, topStackedScale, overlapFactor, gravity));
         setOffscreenPageLimit(numberOfStacked + 1);
     }
 

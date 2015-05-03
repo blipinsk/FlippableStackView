@@ -30,8 +30,18 @@ import com.bartoszlipinski.flippablestackview.utilities.ValueInterpolator;
  */
 public class StackPageTransformer implements ViewPager.PageTransformer {
 
-    public enum Anchor {
-        BOTTOM, TOP, LEFT, RIGHT
+    public enum Orientation {
+        VERTICAL(OrientedViewPager.Orientation.VERTICAL), HORIZONTAL(OrientedViewPager.Orientation.HORIZONTAL);
+
+        private final OrientedViewPager.Orientation mOrientation;
+
+        Orientation(OrientedViewPager.Orientation orientation) {
+            mOrientation = orientation;
+        }
+
+        public OrientedViewPager.Orientation getViewPagerOrientation() {
+            return mOrientation;
+        }
     }
 
     public enum Gravity {
@@ -50,7 +60,7 @@ public class StackPageTransformer implements ViewPager.PageTransformer {
 
     private boolean mInitialValuesCalculated = false;
 
-    private Anchor mAnchor;
+    private Orientation mOrientation;
     private Gravity mGravity;
 
     private Interpolator mScaleInterpolator;
@@ -74,7 +84,7 @@ public class StackPageTransformer implements ViewPager.PageTransformer {
      * @param gravity          Specifies the alignment of the stack (vertically) withing <code>View</code>
      *                         bounds.
      */
-    public StackPageTransformer(int numberOfStacked, Anchor anchor, float currentPageScale, float topStackedScale, float overlapFactor, Gravity gravity) {
+    public StackPageTransformer(int numberOfStacked, Orientation orientation, float currentPageScale, float topStackedScale, float overlapFactor, Gravity gravity) {
         validateValues(currentPageScale, topStackedScale, overlapFactor);
 
         mNumberOfStacked = numberOfStacked;
@@ -82,7 +92,7 @@ public class StackPageTransformer implements ViewPager.PageTransformer {
         mZeroPositionScale = currentPageScale;
         mStackedScaleFactor = (currentPageScale - topStackedScale) / mNumberOfStacked;
         mOverlapFactor = overlapFactor;
-        mAnchor = anchor;
+        mOrientation = orientation;
         mGravity = gravity;
 
         mScaleInterpolator = new DecelerateInterpolator(1.3f);
@@ -94,13 +104,11 @@ public class StackPageTransformer implements ViewPager.PageTransformer {
     public void transformPage(View view, float position) {
 
         int dimen = 0;
-        switch (mAnchor) {
-            case TOP:
-            case BOTTOM:
+        switch (mOrientation) {
+            case VERTICAL:
                 dimen = view.getHeight();
                 break;
-            case LEFT:
-            case RIGHT:
+            case HORIZONTAL:
                 dimen = view.getWidth();
                 break;
         }
@@ -110,15 +118,13 @@ public class StackPageTransformer implements ViewPager.PageTransformer {
             calculateInitialValues(dimen);
         }
 
-        switch (mAnchor) {
-            case TOP:
-            case BOTTOM:
+        switch (mOrientation) {
+            case VERTICAL:
                 view.setRotationX(0);
                 view.setPivotY(dimen / 2f);
                 view.setPivotX(view.getWidth() / 2f);
                 break;
-            case LEFT:
-            case RIGHT:
+            case HORIZONTAL:
                 view.setRotationY(0);
                 view.setPivotX(dimen / 2f);
                 view.setPivotY(view.getHeight() / 2f);
@@ -134,13 +140,11 @@ public class StackPageTransformer implements ViewPager.PageTransformer {
             view.setScaleX(scale);
             view.setScaleY(scale);
             view.setAlpha(1.0f + (position * mAlphaFactor));
-            switch (mAnchor) {
-                case TOP:
-                case BOTTOM:
+            switch (mOrientation) {
+                case VERTICAL:
                     view.setTranslationY(baseTranslation + shiftTranslation);
                     break;
-                case LEFT:
-                case RIGHT:
+                case HORIZONTAL:
                     view.setTranslationX(baseTranslation + shiftTranslation);
                     break;
             }
@@ -154,17 +158,15 @@ public class StackPageTransformer implements ViewPager.PageTransformer {
             float alpha = 1.0f - position;
             alpha = (alpha < 0) ? 0f : alpha;
             view.setAlpha(alpha);
-            switch (mAnchor) {
-                case TOP:
-                case BOTTOM:
+            switch (mOrientation) {
+                case VERTICAL:
                     view.setPivotY(dimen);
                     view.setRotationX(rotation);
                     view.setScaleX(mZeroPositionScale);
                     view.setScaleY(scale);
                     view.setTranslationY(-baseTranslation - mBelowStackSpace - shiftTranslation);
                     break;
-                case LEFT:
-                case RIGHT:
+                case HORIZONTAL:
                     view.setPivotX(dimen);
                     view.setRotationY(-rotation);
                     view.setScaleY(mZeroPositionScale);
