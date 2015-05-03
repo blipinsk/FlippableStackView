@@ -1,3 +1,12 @@
+Version 1.2.0 *(2015-05-03)*
+----------------------------
+
+ * The `HORIZONTAL` orientation of the stack introduced
+ * `OrientedViewPager` introduced
+ * No longer using `VerticalViewPager` (using `OrientedViewPager` instead).
+ * Updated versions of build tools and support library
+ * Removed unnecessary things
+
 Version 1.1.0 *(2015-03-22)*
 ----------------------------
 
