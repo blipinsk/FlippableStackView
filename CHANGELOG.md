@@ -1,3 +1,9 @@
+Version 1.2.1 *(2015-05-05)*
+----------------------------
+
+ * Decreased minSdkVersion
+ * Fixed issue with Maven Central upload script
+
 Version 1.2.0 *(2015-05-03)*
 ----------------------------
 
@@ -6,6 +12,8 @@ Version 1.2.0 *(2015-05-03)*
  * No longer using `VerticalViewPager` (using `OrientedViewPager` instead).
  * Updated versions of build tools and support library
  * Removed unnecessary things
+
+**Note:** I was facing some troubles uploading this version to Maven Central, therefore it can not be obtained simply by a gradle 'compile ...' dependency. Next release (1.2.1) contains fixes for those issues and can be found in central repository.
 
 Version 1.1.0 *(2015-03-22)*
 ----------------------------
