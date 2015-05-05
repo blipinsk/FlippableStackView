@@ -1,3 +1,19 @@
+/**
+ * Copyright 2015 Bartosz Lipinski
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.bartoszlipinski.flippablestackview;
 
 import android.content.Context;
@@ -12,8 +28,6 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.SystemClock;
-import android.support.v4.os.ParcelableCompat;
-import android.support.v4.os.ParcelableCompatCreatorCallbacks;
 import android.support.v4.view.AccessibilityDelegateCompat;
 import android.support.v4.view.KeyEventCompat;
 import android.support.v4.view.MotionEventCompat;
@@ -48,8 +62,10 @@ import java.util.Collections;
 import java.util.Comparator;
 
 /**
- * Created by castorflex on 12/29/13.
- * Just a copy of the original ViewPager modified to support vertical Scrolling
+ * Created by Bartosz Lipinski
+ * Based on castorflex's VerticalViewPager (https://github.com/castorflex/VerticalViewPager)
+ *
+ * 03.05.15
  */
 public class OrientedViewPager extends ViewGroup {
 
@@ -80,7 +96,7 @@ public class OrientedViewPager extends ViewGroup {
      */
     private int mExpectedAdapterCount;
 
-    static class ItemInfo {
+    private static class ItemInfo {
         Object object;
         int position;
         boolean scrolling;
@@ -989,7 +1005,8 @@ public class OrientedViewPager extends ViewGroup {
                 final LayoutParams lp = (LayoutParams) child.getLayoutParams();
                 lp.childIndex = i;
                 if (!lp.isDecor && lp.heightFactor == 0.f) {
-                    // 0 means requery the adapter for this, it doesn't have a valid width.
+                    // 0 means requery the adapter for this, it doesn't have a valid width
+                    // .
                     final ItemInfo ii = infoForChild(child);
                     if (ii != null) {
                         lp.heightFactor = ii.sizeFactor;
@@ -1139,12 +1156,12 @@ public class OrientedViewPager extends ViewGroup {
      * state, in which case it should implement a subclass of this which
      * contains that state.
      */
-    public static class SavedState extends BaseSavedState {
+    public static class ViewPagerSavedState extends BaseSavedState {
         int position;
         Parcelable adapterState;
         ClassLoader loader;
 
-        public SavedState(Parcelable superState) {
+        public ViewPagerSavedState(Parcelable superState) {
             super(superState);
         }
 
@@ -1162,20 +1179,20 @@ public class OrientedViewPager extends ViewGroup {
                     + " position=" + position + "}";
         }
 
-        public static final Parcelable.Creator<SavedState> CREATOR
-                = ParcelableCompat.newCreator(new ParcelableCompatCreatorCallbacks<SavedState>() {
+        public static final Parcelable.Creator<ViewPagerSavedState> CREATOR
+                = ParcelableCompat.newCreator(new ParcelableCompatCreatorCallbacks<ViewPagerSavedState>() {
             @Override
-            public SavedState createFromParcel(Parcel in, ClassLoader loader) {
-                return new SavedState(in, loader);
+            public ViewPagerSavedState createFromParcel(Parcel in, ClassLoader loader) {
+                return new ViewPagerSavedState(in, loader);
             }
 
             @Override
-            public SavedState[] newArray(int size) {
-                return new SavedState[size];
+            public ViewPagerSavedState[] newArray(int size) {
+                return new ViewPagerSavedState[size];
             }
         });
 
-        SavedState(Parcel in, ClassLoader loader) {
+        ViewPagerSavedState(Parcel in, ClassLoader loader) {
             super(in);
             if (loader == null) {
                 loader = getClass().getClassLoader();
@@ -1189,7 +1206,7 @@ public class OrientedViewPager extends ViewGroup {
     @Override
     public Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
-        SavedState ss = new SavedState(superState);
+        ViewPagerSavedState ss = new ViewPagerSavedState(superState);
         ss.position = mCurItem;
         if (mAdapter != null) {
             ss.adapterState = mAdapter.saveState();
@@ -1199,12 +1216,12 @@ public class OrientedViewPager extends ViewGroup {
 
     @Override
     public void onRestoreInstanceState(Parcelable state) {
-        if (!(state instanceof SavedState)) {
+        if (!(state instanceof ViewPagerSavedState)) {
             super.onRestoreInstanceState(state);
             return;
         }
 
-        SavedState ss = (SavedState) state;
+        ViewPagerSavedState ss = (ViewPagerSavedState) state;
         super.onRestoreInstanceState(ss.getSuperState());
 
         if (mAdapter != null) {
@@ -3267,4 +3284,101 @@ public class OrientedViewPager extends ViewGroup {
             return llp.position - rlp.position;
         }
     }
+
+    // Following classes and the interface are needed for the Maven Central upload script to work properly.
+    // They are being introduced here, sort of temporarily (until I find a better solution for this issue).
+
+    /**
+     * Callbacks a {@link Parcelable} creator should implement.
+     */
+    public interface ParcelableCompatCreatorCallbacks<T> {
+
+        /**
+         * Create a new instance of the Parcelable class, instantiating it
+         * from the given Parcel whose data had previously been written by
+         * {@link Parcelable#writeToParcel Parcelable.writeToParcel()} and
+         * using the given ClassLoader.
+         *
+         * @param in The Parcel to read the object's data from.
+         * @param loader The ClassLoader that this object is being created in.
+         * @return Returns a new instance of the Parcelable class.
+         */
+        public T createFromParcel(Parcel in, ClassLoader loader);
+
+        /**
+         * Create a new array of the Parcelable class.
+         *
+         * @param size Size of the array.
+         * @return Returns an array of the Parcelable class, with every entry
+         *         initialized to null.
+         */
+        public T[] newArray(int size);
+    }
+
+    /**
+     * Helper for accessing features in {@link android.os.Parcelable}
+     * introduced after API level 4 in a backwards compatible fashion.
+     */
+    public static class ParcelableCompat {
+
+        /**
+         * Factory method for {@link Parcelable.Creator}.
+         *
+         * @param callbacks Creator callbacks implementation.
+         * @return New creator.
+         */
+        public static <T> Parcelable.Creator<T> newCreator(
+                OrientedViewPager.ParcelableCompatCreatorCallbacks<T> callbacks) {
+            if (android.os.Build.VERSION.SDK_INT >= 13) {
+                return ParcelableCompatCreatorHoneycombMR2Stub.instantiate(callbacks);
+            }
+            return new CompatCreator<T>(callbacks);
+        }
+
+        public static class CompatCreator<T> implements Parcelable.Creator<T> {
+            final OrientedViewPager.ParcelableCompatCreatorCallbacks<T> mCallbacks;
+
+            public CompatCreator(OrientedViewPager.ParcelableCompatCreatorCallbacks<T> callbacks) {
+                mCallbacks = callbacks;
+            }
+
+            @Override
+            public T createFromParcel(Parcel source) {
+                return mCallbacks.createFromParcel(source, null);
+            }
+
+            @Override
+            public T[] newArray(int size) {
+                return mCallbacks.newArray(size);
+            }
+        }
+    }
+
+
+    static class ParcelableCompatCreatorHoneycombMR2Stub {
+        public static <T> Parcelable.Creator<T> instantiate(OrientedViewPager.ParcelableCompatCreatorCallbacks<T> callbacks) {
+            return new ParcelableCompatCreatorHoneycombMR2<T>(callbacks);
+        }
+    }
+
+    static class ParcelableCompatCreatorHoneycombMR2<T> implements Parcelable.ClassLoaderCreator<T> {
+        private final OrientedViewPager.ParcelableCompatCreatorCallbacks<T> mCallbacks;
+
+        public ParcelableCompatCreatorHoneycombMR2(OrientedViewPager.ParcelableCompatCreatorCallbacks<T> callbacks) {
+            mCallbacks = callbacks;
+        }
+
+        public T createFromParcel(Parcel in) {
+            return mCallbacks.createFromParcel(in, null);
+        }
+
+        public T createFromParcel(Parcel in, ClassLoader loader) {
+            return mCallbacks.createFromParcel(in, loader);
+        }
+
+        public T[] newArray(int size) {
+            return mCallbacks.newArray(size);
+        }
+    }
+
 }
