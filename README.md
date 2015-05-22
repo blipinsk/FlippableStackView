@@ -5,7 +5,7 @@ FlippableStackView
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-FlippableStackView-green.svg?style=flat)](http://android-arsenal.com/details/1/1854)
 [![Maven Central](https://img.shields.io/maven-central/v/com.bartoszlipinski.flippablestackview/library.svg)](http://gradleplease.appspot.com/#flippablestackview)
 
-An Android library introducing a stack of Views with the first item being flippable (on dragging down).
+An Android library introducing a stack of Views with the first item being flippable.
 
 `Views` inside the stack remain the aspect ratio of the `FlippableStackView`.
 
