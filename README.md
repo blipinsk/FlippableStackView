@@ -11,8 +11,11 @@ An Android library introducing a stack of Views with the first item being flippa
 
 ![ ](/FlippableStackView.png)
 
-![ ](/FlippableStackView.gif)
 
+Library in action
+=================
+
+![ ](/FlippableStackView.gif)
 
 Usage
 =====
@@ -58,7 +61,7 @@ There are three methods that allows for initialization of the stack:
                               float overlapFactor,
                               StackPageTransformer.Gravity gravity) 
  
- Be sure to read about all the parameters in `Javadoc` before using the latter one.
+ Be sure to read about all the parameters in `Javadoc` before using the last one.
 
 Including In Your Project
 -------------------------
