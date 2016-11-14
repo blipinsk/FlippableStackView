@@ -69,7 +69,7 @@ You can grab the library via Maven Central. Just add a proper dependency inside 
 
 ```xml
 dependencies {
-    compile 'com.hkm.ui:FlippableStackView:1.3.1'
+    compile 'com.hkm.ui:flippable-stack-view:1.3.1'
 }
 ```
 
