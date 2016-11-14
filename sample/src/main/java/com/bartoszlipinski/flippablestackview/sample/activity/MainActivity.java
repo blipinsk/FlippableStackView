@@ -52,14 +52,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-
         createViewPagerFragments();
         mPageAdapter = new ColorFragmentAdapter(getSupportFragmentManager(), mViewPagerFragments);
-
         boolean portrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
-
         mFlippableStack = (FlippableStackView) findViewById(R.id.flippable_stack_view);
         mFlippableStack.initStack(4, portrait ?
                 StackPageTransformer.Orientation.VERTICAL :
