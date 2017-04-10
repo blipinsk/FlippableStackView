@@ -22,19 +22,22 @@ Usage
 *For a working implementation of this library see the `sample/` folder.*
 
   1. Include the view inside your layout xml
-
-        <com.bartoszlipinski.flippablestackview.FlippableStackView
-            android:id="@+id/stack"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+  
+      ```xml
+      <com.bartoszlipinski.flippablestackview.FlippableStackView
+        android:id="@+id/stack"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+      ```
 
   2. `FlippableStackView` is based on the specific `PageTransformer` used with the `ViewPager`. Therefore to fill the `View` you can use just a typical implementation of a [`PagerAdapter`][1]. In your `onCreate` method (or `onCreateView` for a fragment), setup all the parameters of the `FlippableStackView`.
 
-        FlippableStackView stack = (FlippableStackView) findViewById(R.id.stack);
-        stack.initStack(2);
-        stack.setAdapter(mStackAdapter);
-        	//assuming mStackAdapter contains your initialized adapter
-
+      ```java
+      FlippableStackView stack = (FlippableStackView) findViewById(R.id.stack);
+      stack.initStack(2);
+      stack.setAdapter(mStackAdapter); //assuming mStackAdapter contains your initialized adapter
+      ```
+      
 **Important Note:**
 The current implementation of the library will display the elements from the `Adapter` in the reverse order. In other words: view at position 0 of your adapter will be displayed at the bottom of the stack and view at position `adapter.getCount()-1` will be visible first (available for the first flip).
 
@@ -46,20 +49,26 @@ There are three methods that allows for initialization of the stack:
 
   1. First one sets up the stack in the default way (scale-wise and orientation-wise):
  
-        public void initStack(int numberOfStacked)
+       ```java
+       public void initStack(int numberOfStacked)
+       ```
 
   2. The second one sets up the stack in the default way (scale-wise) but let's you choose the orientation of it:
 
-        public void initStack(int numberOfStacked, StackPageTransformer.Orientation orientation)
- 
+      ```java
+      public void initStack(int numberOfStacked, StackPageTransformer.Orientation orientation)
+      ```
+
   2. And the last one... a bit more advanced (lets you customize all the scale-related, orientation-related and alignment-related parameters):
   
+        ```java
         public void initStack(int numberOfStacked,
                               StackPageTransformer.Orientation orientation,
                               float currentPageScale,
                               float topStackedScale,
                               float overlapFactor,
-                              StackPageTransformer.Gravity gravity) 
+                              StackPageTransformer.Gravity gravity)
+        ```
  
  Be sure to read about all the parameters in `Javadoc` before using the last one.
 
