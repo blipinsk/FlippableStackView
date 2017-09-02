@@ -1,6 +1,6 @@
 FlippableStackView
 ===============
-
+[ ![Download](https://api.bintray.com/packages/jjhesk/maven/flippable-stack-view/images/download.svg) ](https://bintray.com/jjhesk/maven/flippable-stack-view/_latestVersion)
 [![License](https://img.shields.io/github/license/blipinsk/FlippableStackView.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-FlippableStackView-green.svg?style=flat)](http://android-arsenal.com/details/1/1854)
 [![Maven Central](https://img.shields.io/maven-central/v/com.bartoszlipinski.flippablestackview/library.svg)](http://gradleplease.appspot.com/#flippablestackview)
@@ -78,7 +78,7 @@ You can grab the library via Maven Central. Just add a proper dependency inside 
 
 ```xml
 dependencies {
-    compile 'com.bartoszlipinski.flippablestackview:library:1.2.1'
+    compile 'com.hkm.ui:flippable-stack-view:1.3.1'
 }
 ```
 

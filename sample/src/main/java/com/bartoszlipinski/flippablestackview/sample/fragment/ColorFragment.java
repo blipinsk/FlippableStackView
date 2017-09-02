@@ -1,12 +1,12 @@
 /**
  * Copyright 2015 Bartosz Lipinski
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,10 +33,8 @@ import com.bartoszlipinski.flippablestackview.sample.R;
  * 28.01.15
  */
 public class ColorFragment extends Fragment {
-
     private static final String EXTRA_COLOR = "com.bartoszlipinski.flippablestackview.fragment.ColorFragment.EXTRA_COLOR";
-
-    FrameLayout mMainLayout;
+    private FrameLayout mMainLayout;
 
     public static ColorFragment newInstance(int backgroundColor) {
         ColorFragment fragment = new ColorFragment();
@@ -50,13 +48,10 @@ public class ColorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_dummy, container, false);
         Bundle bdl = getArguments();
-
         mMainLayout = (FrameLayout) v.findViewById(R.id.main_layout);
-
         LayerDrawable bgDrawable = (LayerDrawable) mMainLayout.getBackground();
         GradientDrawable shape = (GradientDrawable) bgDrawable.findDrawableByLayerId(R.id.background_shape);
         shape.setColor(bdl.getInt(EXTRA_COLOR));
-
         return v;
     }
 }
